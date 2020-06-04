@@ -17,13 +17,19 @@ import { useForm } from "react-hook-form";
 
 export default function Post(props) {
     const { register, handleSubmit, watch, errors } = useForm();
-    const [title, setTitle] = React.useState(props.title)
-    const [message, setMessage] = React.useState(props.message)
+    const [title, setTitle] = React.useState()
+    const [message, setMessage] = React.useState()
     const [open, setOpen] = React.useState(false);
 
     // handle Modal opening and closing
     const handleOpen = () => {
-        setOpen(true);
+        fetch('http://localhost:5000/postslist/' + props.id).then(function(response) {
+            return response.json();
+            }).then(function(data) {
+                setTitle(data[0].title);
+                setMessage(data[0].message);
+                setOpen(true);
+            });
     };
     
     const handleClose = () => {
@@ -64,7 +70,6 @@ export default function Post(props) {
         }).then(function(response) {
             return response.json();
         }).then(function(data) {
-           
         });
         
     }
@@ -99,9 +104,10 @@ export default function Post(props) {
                                     inputRef={register({required: true})}
                                     id="filled-textarea"
                                     label="Title"
+                                    variant="outlined"
                                     placeholder="Put your title here"
                                     defaultValue={title}
-                                    onChange={(new_val) => setTitle(new_val)}
+                                    onChange={(new_title) => setTitle(new_title)}
                                 />
                             </p>
                             <p>
@@ -110,11 +116,12 @@ export default function Post(props) {
                                     inputRef={register({required: true})}
                                     id="filled-textarea"
                                     label="Message"
+                                    variant="outlined"
                                     placeholder="Put your message here"
                                     rows={4}
                                     multiline
                                     defaultValue={message}
-                                    onChange={(new_val) => setTitle(new_val)}
+                                    onChange={(new_message) => setMessage(new_message)}
                                 />
                             </p>
                             <p>
