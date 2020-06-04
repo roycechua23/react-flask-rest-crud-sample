@@ -23,10 +23,8 @@ export default function PostsFeed() {
         useEffect(() => {
             async function fetchData() {
                 await fetch('http://localhost:5000/postslist').then(function(response) {
-                    console.log(response)
                     return response.json();
                 }).then(function(data) {
-                    console.log(data);
                     setPosts(data);
                 });
             };
