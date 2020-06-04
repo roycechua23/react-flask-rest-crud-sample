@@ -42,6 +42,7 @@ export default function PostForm() {
                             inputRef={register({required: true})}
                             id="filled-textarea"
                             label="Title"
+                            variant="outlined"
                             placeholder="Put your title here"
                         />
                         {errors.exampleRequired && <span>This field is required</span>}
@@ -52,6 +53,7 @@ export default function PostForm() {
                             inputRef={register({required: true})}
                             id="filled-textarea"
                             label="Message"
+                            variant="outlined"
                             placeholder="Put your message here"
                             rows={4}
                             multiline
