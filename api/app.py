@@ -29,9 +29,13 @@ CORS(app)
 
 # Add or retrieve users to the mongodb collection
 class PostsList(Resource):
-    def get(self):
-        posts = Post.objects().to_json()
-        return Response(posts, mimetype="application/json", status=200)
+    def get(self, id=None):
+        if id is not None:
+            post = Post.objects(id=id).to_json()
+            return Response(post, mimetype="application/json", status=200)
+        else:
+            posts = Post.objects().to_json()
+            return Response(posts, mimetype="application/json", status=200)
 
     def post(self):
         args = request.get_json(force=True)
@@ -56,7 +60,7 @@ class Posts(Resource):
         return Response({"id": str(id), "message": "Record Deleted"}, mimetype="application/json", status=200) 
     
 # Add the resources (API endpoints)    
-api.add_resource(PostsList, '/postslist')
+api.add_resource(PostsList, '/postslist','/postslist/<string:id>')
 api.add_resource(Posts, '/posts/<string:id>')
 
 if __name__ == '__main__':
