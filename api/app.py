@@ -42,23 +42,22 @@ class PostsList(Resource):
 
 # Edit or delete the users 
 class Posts(Resource):
-    def put(self, post_id):
+    def put(self, id):
         args = request.get_json(force=True)
-        post = Post.objects(post_id=post_id)
+        post = Post.objects(id=id)
         post.update(
             title=args["title"], 
             message=args["message"]
             )
-        return {"message": "Record Updated"}, 200            
+        return Response({"message": "Record Updated"}, mimetype="application/json", status=200)          
 
     def delete(self, id):
-        args = request.get_json(force=True)
         post = Post.objects(id=id).delete()
-        return {"message": "Record Deleted"}, 200    
+        return Response({"id": str(id), "message": "Record Deleted"}, mimetype="application/json", status=200) 
     
 # Add the resources (API endpoints)    
 api.add_resource(PostsList, '/postslist')
-api.add_resource(Posts, '/posts/<int:post_id>')
+api.add_resource(Posts, '/posts/<string:id>')
 
 if __name__ == '__main__':
     app.run(debug=True)
