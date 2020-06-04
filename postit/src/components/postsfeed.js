@@ -39,9 +39,7 @@ export default function PostsFeed() {
         return (
             <div style={{padding:20, display: 'flex',  justifyContent:'center', alignItems:'center'}}>
                 <Grid container direction="row" justify="center" alignItems="center">
-                    {/* <Grid item xs> */}
                         {posts.length > 0 ? posts.map((post, index) => <Post key={post._id.$oid} title={post.title} message={post.message} />) : <p>No Posts to show :(</p>}
-                    {/* </Grid> */}
                 </Grid>     
             </div>
         );
