@@ -15,13 +15,10 @@ const useStyles = makeStyles((theme) => ({
 export default function PostForm() {
         const classes = useStyles();
 
-        const { register, handleSubmit, watch, errors } = useForm();
+        const { register, handleSubmit, watch, errors, reset} = useForm();
         const onSubmit = data => {
-            console.log(register);
-            console.log(data);
-            console.log(JSON.stringify(data));
             fetch('http://127.0.0.1:5000/postslist', {
-                mode: 'no-cors',
+                mode: 'cors',
                 method: 'POST',
                 headers: {
                     "Content-type": "application/json",
@@ -30,7 +27,6 @@ export default function PostForm() {
             }).then(function(response) {
                 return response.json();
             }).then(function(data) {
-                console.log(data);
             });
         };
 
