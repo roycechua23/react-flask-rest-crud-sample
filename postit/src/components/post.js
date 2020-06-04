@@ -15,6 +15,18 @@ export default function Post(props) {
         },
     }));
 
+    const handleDelete = function () {
+        fetch('http://127.0.0.1:5000/posts/' + props.id, {
+                mode: 'cors',
+                method: 'delete',
+            }).then(function(response) {
+                return response.json();
+            }).then(function(data) {
+                alert("Delete button pressed:" + props.id);
+            });
+            
+    }
+
     const classes = useStyles();
 
     return (
@@ -31,7 +43,7 @@ export default function Post(props) {
                 <Button size="small" style={{color:"green"}}>
                 Update
                 </Button>
-                <Button size="small" color="secondary">
+                <Button size="small" color="secondary" onClick={handleDelete}>
                 Delete
                 </Button>
             </CardActions>
